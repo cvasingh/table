@@ -8,6 +8,7 @@ import Table from './components/Table';
 import BasicTable from './components/BasicTable';
 import FilteringTable from './components/FilteringTable';
 import SortingTable from './components/SortingTable';
+import PaginationTable from './components/PaginationTable';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/BasicTable' element={<BasicTable />} />
           <Route path='/SortingTable' element={<SortingTable />} />
           <Route path='/FilteringTable' element={<FilteringTable />} />
+          <Route path='/PaginationTable' element={<PaginationTable />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -24,7 +24,7 @@ export default function FilteringTable() {
     const { globalFilter } = state;
     return (<>
         <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-        <table {...getTableProps()}>
+        <table {...getTableProps()} className="table table-striped table-hover table-bordered">
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>

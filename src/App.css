@@ -1,12 +1,14 @@
 a {
   margin: 5px;
   text-decoration: none !important;
-  font-weight: bolder;
+  font-weight: bold;
   color: #04AA6D;
+  transition: 0.5s;
 }
 
 a:hover {
   margin: 4px;
+  font-weight: bolder;
   font-size: 1.05em;
   color: #04AA6D;
 }
@@ -14,7 +16,7 @@ a:hover {
 .App {
   text-align: center;
 }
-
+/* 
 table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -46,4 +48,4 @@ tfoot td {
   text-align: center;
   background-color: #04AA6D;
   color: white;
-}
+} */

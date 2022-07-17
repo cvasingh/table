@@ -18,7 +18,7 @@ export default function BasicTable() {
             data
         })
     return (
-        <table {...getTableProps()}>
+        <table {...getTableProps()} className="table table-striped table-hover table-bordered">
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>

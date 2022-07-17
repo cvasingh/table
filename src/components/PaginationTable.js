@@ -1,58 +1,9 @@
 import React, { useMemo } from 'react'
-import { useTable, useGlobalFilter, useSortBy, usePagination } from 'react-table'
+import { useTable, usePagination } from 'react-table'
 import DATA from './data.json'
+import { COLUMNS } from './columns'
 
-// set columns 
-const COLUMNS = [
-    {
-        Header: "Id",
-        Footer: "Id",
-        accessor: "id"
-    },
-    {
-        Header: "First Name",
-        Footer: "First Name",
-        accessor: "first_name"
-    },
-    {
-        Header: "Last Name",
-        Footer: "Last Name",
-        accessor: "last_name"
-    },
-    // {
-    //     Header: "Email",
-    //     Footer: "Email",
-    //     accessor: "email"
-    // },
-    // {
-    //     Header: "DOB",
-    //     Footer: "DOB",
-    //     accessor: "DOB",
-    //     Cell: ({ value }) => { return format(new Date(value), 'dd/MM/yyyy') }
-    // },
-    {
-        Header: "Country",
-        Footer: "Country",
-        accessor: "country"
-    },
-    {
-        Header: "Phone",
-        Footer: "Phone",
-        accessor: "phone"
-    }
-]
-
-// for searching
-const GlobalFilter = ({ filter, setFilter }) => {
-    return (
-        <span>
-            Global Search:
-            <input value={filter || ''} onChange={e => setFilter(e.target.value)} />
-        </span>
-    )
-}
-
-export default function SortingTable() {
+export default function PaginationTable() {
     const columns = useMemo(() => COLUMNS, [])
     const data = useMemo(() => DATA, [])
 
@@ -60,6 +11,7 @@ export default function SortingTable() {
         getTableProps,
         getTableBodyProps,
         headerGroups,
+        rows,
         prepareRow,
         page,
         nextPage,
@@ -70,49 +22,36 @@ export default function SortingTable() {
         gotoPage,
         pageCount,
         setPageSize,
-        setGlobalFilter,
-        state } = useTable({
-            columns,
-            data
-        }, useGlobalFilter, useSortBy, usePagination)
+        state
+    } = useTable({
+        columns,
+        data
+    }, usePagination)
 
-    const { pageIndex, pageSize, globalFilter } = state
+    const { pageIndex, pageSize } = state
     return (<>
         <select value={pageSize} onChange={e => setPageSize(e.target.value)}>
             {
-                [10, 25, 50].map(pageSize => (
+                [10, 25, 50, 100].map(pageSize => (
                     <option key={pageSize} value={pageSize}>
                         Show {pageSize}
                     </option>
                 ))
             }
         </select>
-        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <table {...getTableProps()} className="table table-striped table-hover table-bordered">
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps(
-                                [{ className: column.className },
-                                column.getSortByToggleProps(),
-                                ]
-                            )}>
-                                <div className='position-relative'>
-                                    {column.render('Header')}
-                                    <div className='position-absolute bottom-0 end-0'>
-                                        {column.isSorted ? (column.isSortedDesc ?
-                                            <i className="bi bi-sort-up" /> :
-                                            <i className="bi bi-sort-down" />) :
-                                            <i className="bi bi-list disable" />}
-                                    </div>
-                                </div>
+                            <th {...column.getHeaderProps()}>
+                                {column.render('Header')}
                             </th>
                         ))}
                     </tr>
                 ))}
             </thead>
-            <tbody {...getTableBodyProps()} className="table-group-divider">
+            <tbody {...getTableBodyProps()}>
                 {page.map(row => {
                     prepareRow(row)
                     return <tr {...row.getRowProps()}>
@@ -148,5 +87,6 @@ export default function SortingTable() {
                 </button>
             </div>
         </div>
-    </>)
+    </>
+    )
 }

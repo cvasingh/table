@@ -18,7 +18,7 @@ export default function SortingTable() {
             data
         }, useSortBy)
     return (
-        <table {...getTableProps()}>
+        <table {...getTableProps()} className="table table-striped table-hover table-bordered">
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
@@ -28,13 +28,15 @@ export default function SortingTable() {
                                 column.getSortByToggleProps(),
                                 ]
                             )}>
-                                {column.render('Header')}
-                                <span>
-                                    {column.isSorted ? (column.isSortedDesc ?
-                                        <i className="bi bi-sort-up" /> :
-                                        <i className="bi bi-sort-down" />) :
-                                        <i className="bi bi-list disable" />}
-                                </span>
+                                <div className='position-relative'>
+                                    {column.render('Header')}
+                                    <div className='position-absolute bottom-0 end-0'>
+                                        {column.isSorted ? (column.isSortedDesc ?
+                                            <i className="bi bi-sort-up" /> :
+                                            <i className="bi bi-sort-down" />) :
+                                            <i className="bi bi-list disable" />}
+                                    </div>
+                                </div>
                             </th>
                         ))}
                     </tr>
